@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity WebArticle.
+    -->
+    <changeSet id="20230820221559-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="web_article_id"
+                                 baseTableName="rel_web_article__tags"
+                                 constraintName="fk_rel_web_article__tags__web_article_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="web_article"/>
+
+        <addForeignKeyConstraint baseColumnNames="tags_id"
+                                 baseTableName="rel_web_article__tags"
+                                 constraintName="fk_rel_web_article__tags__tags_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tag"/>
+    </changeSet>
+</databaseChangeLog>

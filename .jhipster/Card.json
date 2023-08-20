@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20230820221600",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "card",
+  "fields": [
+    {
+      "fieldName": "idMagic",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nameEnglish",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nameSpanish",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "imageUrl",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Card",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

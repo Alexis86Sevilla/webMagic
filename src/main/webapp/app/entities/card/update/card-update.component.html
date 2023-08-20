@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-card-heading" data-cy="CardCreateUpdateHeading" jhiTranslate="magicwebApp.card.home.createOrEditLabel">
+        Crear o editar Card
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="magicwebApp.card.idMagic" for="field_idMagic">Id Magic</label>
+          <input type="text" class="form-control" name="idMagic" id="field_idMagic" data-cy="idMagic" formControlName="idMagic" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="magicwebApp.card.nameEnglish" for="field_nameEnglish">Name English</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nameEnglish"
+            id="field_nameEnglish"
+            data-cy="nameEnglish"
+            formControlName="nameEnglish"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="magicwebApp.card.nameSpanish" for="field_nameSpanish">Name Spanish</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nameSpanish"
+            id="field_nameSpanish"
+            data-cy="nameSpanish"
+            formControlName="nameSpanish"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="magicwebApp.card.imageUrl" for="field_imageUrl">Image Url</label>
+          <input type="text" class="form-control" name="imageUrl" id="field_imageUrl" data-cy="imageUrl" formControlName="imageUrl" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

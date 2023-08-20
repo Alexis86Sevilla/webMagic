@@ -1,0 +1,30 @@
+{
+  "magicwebApp": {
+    "webArticle": {
+      "home": {
+        "title": "Web Articles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Web Article",
+        "createOrEditLabel": "Create or edit a Web Article",
+        "notFound": "No Web Articles found"
+      },
+      "created": "A new Web Article is created with identifier {{ param }}",
+      "updated": "A Web Article is updated with identifier {{ param }}",
+      "deleted": "A Web Article is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Web Article {{ id }}?"
+      },
+      "detail": {
+        "title": "Web Article"
+      },
+      "id": "ID",
+      "title": "Title",
+      "body": "Body",
+      "image": "Image",
+      "author": "Author",
+      "date": "Date",
+      "comments": "Comments",
+      "tags": "Tags"
+    }
+  }
+}

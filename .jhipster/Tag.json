@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20230820221602",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "tag",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Tag",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "webArticle",
+      "otherEntityRelationshipName": "tags",
+      "ownerSide": false,
+      "relationshipName": "articles",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

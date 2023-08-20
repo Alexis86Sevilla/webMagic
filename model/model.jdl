@@ -1,0 +1,46 @@
+
+entity WebArticle {
+	title String,
+    body String,
+    image Blob,
+    author String,
+    date Instant
+}
+
+entity Card {
+	idMagic String,
+    nameEnglish String,
+    nameSpanish String,
+    imageUrl String
+}
+
+entity Comment {
+	body String,
+    date Instant
+}
+
+entity Tag {
+	name String
+}
+
+relationship OneToMany {
+  WebArticle{comments} to Comment
+}
+
+relationship ManyToMany {
+  WebArticle{tags} to Tag{articles}
+}
+
+
+/**
+ *OPTIONS
+ *========
+ */
+ 
+paginate * with pagination
+filter *
+dto * with mapstruct
+service all with serviceImpl
+
+
+

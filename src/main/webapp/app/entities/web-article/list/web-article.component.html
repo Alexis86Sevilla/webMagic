@@ -1,0 +1,156 @@
+<div>
+  <h2 id="page-heading" data-cy="WebArticleHeading">
+    <span jhiTranslate="magicwebApp.webArticle.home.title">Web Articles</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="magicwebApp.webArticle.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-web-article"
+        [routerLink]="['/web-article/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="magicwebApp.webArticle.home.createLabel"> Crear nuevo Web Article </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="webArticles?.length === 0">
+    <span jhiTranslate="magicwebApp.webArticle.home.notFound">Ningún Web Articles encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="webArticles && webArticles.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="title">
+            <div class="d-flex">
+              <span jhiTranslate="magicwebApp.webArticle.title">Title</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="body">
+            <div class="d-flex">
+              <span jhiTranslate="magicwebApp.webArticle.body">Body</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="image">
+            <div class="d-flex">
+              <span jhiTranslate="magicwebApp.webArticle.image">Image</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="author">
+            <div class="d-flex">
+              <span jhiTranslate="magicwebApp.webArticle.author">Author</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="date">
+            <div class="d-flex">
+              <span jhiTranslate="magicwebApp.webArticle.date">Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let webArticle of webArticles; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/web-article', webArticle.id, 'view']">{{ webArticle.id }}</a>
+          </td>
+          <td>{{ webArticle.title }}</td>
+          <td>{{ webArticle.body }}</td>
+          <td>
+            <a *ngIf="webArticle.image" (click)="openFile(webArticle.image, webArticle.imageContentType)" jhiTranslate="entity.action.open"
+              >Abrir</a
+            >
+            <span *ngIf="webArticle.image">{{ webArticle.imageContentType }}, {{ byteSize(webArticle.image) }}</span>
+          </td>
+          <td>{{ webArticle.author }}</td>
+          <td>{{ webArticle.date | formatMediumDatetime }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/comment']"
+                [queryParams]="{ 'filter[webArticleId.in]': webArticle.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  jhiTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('magicwebApp.webArticle.comments' | translate) }"
+                  >Show Comment</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/web-article', webArticle.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/web-article', webArticle.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(webArticle)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="webArticles && webArticles.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
