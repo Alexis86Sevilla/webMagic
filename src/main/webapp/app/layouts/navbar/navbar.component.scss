@@ -2,35 +2,51 @@
 @import '~bootstrap/scss/variables';
 
 /* ==========================================================================
-Navbar
-========================================================================== */
-
-.navbar-version {
-  font-size: 0.65em;
-  color: $navbar-dark-color;
-}
-
-.profile-image {
-  height: 1.75em;
-  width: 1.75em;
-}
-
-.navbar {
-  padding: 0.2rem 1rem;
-
-  a.nav-link {
-    font-weight: 400;
-  }
-}
-
-/* ==========================================================================
 Logo styles
 ========================================================================== */
-.logo-img {
-  height: 45px;
-  width: 45px;
-  display: inline-block;
-  vertical-align: middle;
-  background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
-  background-size: contain;
+
+.logo {
+  width: 15%;
+  position: relative;
+}
+
+@import 'https://fonts.googleapis.com/css?family=Raleway';
+
+div.container {
+  font-family: Raleway;
+  margin: 0 auto;
+  padding: 10em 3em;
+  text-align: center;
+}
+
+div.container .links {
+  color: #fff;
+  text-decoration: none;
+  font: 20px Raleway;
+  margin: 0px 10px;
+  padding: 10px 10px;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.lightGreen {
+  background: black;
+}
+
+/* Pull down  */
+div.pullDown a:before {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  left: 0px;
+  top: 0px;
+  content: '';
+  background: #fff;
+  opacity: 0.3;
+  transition: all 0.3s;
+}
+
+div.pullDown a:hover:before {
+  height: 100%;
 }
